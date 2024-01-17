@@ -29,10 +29,11 @@
       </div>
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        <% if(!currUser){%>
+        <% if(!currUser){ %>
         <a class="nav-link login" href="/login"><b>Log In</b></a>
         <a class="nav-link signup" href="/signup"><b>Sign Up</b></a>
-        <% } %> <% if(currUser){%>
+        <% } %> 
+        <% if(currUser){ %>
         <a class="nav-link logout" href="/logout"><b>Logout</b></a>
         <% } %>
       </div>
