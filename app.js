@@ -55,7 +55,7 @@ store.on("error",(err)=>{
 })
 const sessionOption = {
   store,
-  secret: process.nextTick.SECRET,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -95,11 +95,6 @@ app.use((err, req, res, next) => {
   // res.status(statusCode).send(message);
   res.render("error.ejs", { err });
 });
-
-
-
-
-
 const port = 8080;
 app.listen(port, () => {
   console.log("server is listening at no. 8080");
