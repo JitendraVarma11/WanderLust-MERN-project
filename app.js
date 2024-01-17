@@ -78,7 +78,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
+  res.locals.currUser = req.User;
   next();
 });
 
@@ -86,18 +86,6 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-// app.get("/testListing", async (req,res)=>{
-//     let sampleListing=new Listing({
-//         title:"My New Villa",
-//         description:"By the beach",
-//         price:1200,
-//         location:"Calangute, Goa",
-//         country:"India",
-//     })
-// await sampleListing.save();
-// console.log("sample was saved");
-// res.send("Succesfull Testing");
-// })
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page Not Found!"));
