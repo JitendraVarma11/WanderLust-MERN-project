@@ -50,8 +50,8 @@ const store=MongoStore.create({
   touchAfter:24*3600,
 })
 
-store.on("error",()=>{
-  console.log("ERROR", err);
+store.on("error",(err)=>{
+  console.log("ERROR: ", err);
 })
 const sessionOption = {
   store,
