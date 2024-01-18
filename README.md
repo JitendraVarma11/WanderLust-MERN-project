@@ -1,5 +1,5 @@
 ## Wanderlust
-- This project is a basic clone of the platform Airbnb, developed using the MERN (MongoDB, Express.js, Node.js, and vanilla JavaScript) stack. Unlike, this implementation relies on HTML, CSS, and JavaScript for the frontend.
+- This project is a basic clone of the platform Airbnb, developed using the MERN (MongoDB, Express.js, Node.js, and JavaScript) stack. Unlike, this implementation relies on HTML, CSS, and JavaScript for the frontend.
 
 ## Features
 
@@ -42,5 +42,6 @@
     - Bootstrap JS
     
   ### Addition related Libraries and tools
-  
 
+## Project link
+    [https://wanderlust-ruqf.onrender.com/listings](https://wanderlust-ruqf.onrender.com/listings)
