@@ -14,17 +14,16 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const Listing = require("./models/listing");
-
 const listingRouter = require("./Routes/listings.js");
 const reviewRouter = require("./Routes/review.js");
 const userRouter = require("./Routes/user.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 
-const dbUrl=process.env.ATLASDB_URL;
+const mongoUrl="mongodb://localhost:27017/wanderlust";
+// const dbUrl=process.env.ATLASDB_URL;
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(mongoUrl);
 }
 
 main()
@@ -42,20 +41,20 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 
-const store=MongoStore.create({
-  mongoUrl:dbUrl,
-  crypto:{
-    secret:process.env.SECRET,
-  },
-  touchAfter:24*3600,
-})
+// const store=MongoStore.create({
+//   mongoUrl:dbUrl,
+//   crypto:{
+//     secret:process.env.SECRET,
+//   },
+//   touchAfter:24*3600,
+// })
 
-store.on("error",()=>{
-  console.log("ERROR", err);
-})
+// store.on("error",(err)=>{
+//   console.log("ERROR :", err);
+// })
 const sessionOption = {
-  store,
-  secret: process.nextTick.SECRET,
+  //store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -94,10 +93,6 @@ app.use((err, req, res, next) => {
   // res.status(statusCode).send(message);
   res.render("error.ejs", { err });
 });
-
-
-
-
 
 const port = 8080;
 app.listen(port, () => {
