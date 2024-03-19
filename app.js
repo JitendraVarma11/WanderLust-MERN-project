@@ -49,11 +49,19 @@ app.use(express.static(path.join(__dirname, "/public")));
 //   touchAfter:24*3600,
 // })
 
+<<<<<<< HEAD
 // store.on("error",(err)=>{
 //   console.log("ERROR :", err);
 // })
 const sessionOption = {
   //store,
+=======
+store.on("error",(err)=>{
+  console.log("ERROR: ", err);
+})
+const sessionOption = {
+  store,
+>>>>>>> 3386ca2948a6ae2d0c6b297173708a420d6fc2a8
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
@@ -85,6 +93,10 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3386ca2948a6ae2d0c6b297173708a420d6fc2a8
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page Not Found!"));
 });
@@ -93,7 +105,10 @@ app.use((err, req, res, next) => {
   // res.status(statusCode).send(message);
   res.render("error.ejs", { err });
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3386ca2948a6ae2d0c6b297173708a420d6fc2a8
 const port = 8080;
 app.listen(port, () => {
   console.log("server is listening at no. 8080");
