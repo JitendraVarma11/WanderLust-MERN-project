@@ -9,17 +9,22 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore=require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Listing = require("./models/listing");
+
 const listingRouter = require("./Routes/listings.js");
 const reviewRouter = require("./Routes/review.js");
 const userRouter = require("./Routes/user.js");
+const wrapAsync = require("./utils/wrapAsync.js");
+
+const dbUrl=process.env.ATLASDB_URL;
 
 async function main() {
-  await mongoose.connect(process.env.ATLASDB_URL);
+  await mongoose.connect(dbUrl);
 }
 
 main()
@@ -36,8 +41,21 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+
+const store=MongoStore.create({
+  mongoUrl:dbUrl,
+  crypto:{
+    secret:process.env.SECRET,
+  },
+  touchAfter:24*3600,
+})
+
+store.on("error",()=>{
+  console.log("ERROR", err);
+})
 const sessionOption = {
-  secret: process.env.SECRET,
+  store,
+  secret: process.nextTick.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -73,8 +91,13 @@ app.all("*", (req, res, next) => {
 });
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;
+  // res.status(statusCode).send(message);
   res.render("error.ejs", { err });
 });
+
+
+
+
 
 const port = 8080;
 app.listen(port, () => {
