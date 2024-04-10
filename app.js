@@ -17,10 +17,9 @@ const User = require("./models/user.js");
 const listingRouter = require("./Routes/listings.js");
 const reviewRouter = require("./Routes/review.js");
 const userRouter = require("./Routes/user.js");
-const mongoUrl = "mongodb://localhost:27017/wanderlust";
 
 async function main() {
-  await mongoose.connect(mongoUrl);
+  await mongoose.connect(process.env.ATLASDB_URL);
 }
 
 main()
