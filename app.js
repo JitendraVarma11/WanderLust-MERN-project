@@ -55,7 +55,7 @@ store.on("error",()=>{
 })
 const sessionOption = {
   store,
-  secret: process.nextTick.SECRET,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
